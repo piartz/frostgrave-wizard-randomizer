@@ -188,7 +188,7 @@ function generateAlignedSpells(wizardType) {
 }
 
 function generateRandomNeutralSpells(wizardType) {
-    const neutralCandidates = neutralTypes.filter(type => type !== wizardType);
+    const neutralCandidates = neutralTypes.filter(type => !alignedTypes[wizardType].includes(type) && type !== opposingTypes[wizardType]);
     const neutralSpells = [];
     neutralCandidates.forEach((type) => {
         const spellList = spells[type];
