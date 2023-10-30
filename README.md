@@ -2,7 +2,7 @@
 Create a random Wizard for [Frostgrave: Second Edition](https://www.josephamccullough.com/frostgrave/)
 
 ## How does it work?
-As simple as it sounds. Navigate to the website, click on generate, and you will have a random wizard class with 8 random spells, based on the current rules of Wizard building.
+As simple as it sounds. Navigate to [the website](https://piartz.github.io/frostgrave-wizard-randomizer/), click on generate, and you will have a random wizard class with 8 random spells, based on the current rules of Wizard building.
 
 ## Why should I randomize my wizards?
 * Frostgrave was conceived as a narrative game. Over the years, thousands of players and games have revealed some ways to optimize your choices in character creation, making overpowered combinations of classes and spells being used more often than others. A game that is maintained by a single author is very difficult to balance (even if that author is Joseph A. McCullough!). Random wizards enable epic stories over being competitive. 
