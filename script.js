@@ -273,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Initial generation when the page loads
-    const initialWizardType = generateRandomWizard();
-    wizardTypeElement.textContent = initialWizardType;
-    spellListElement.innerHTML = "";
+    // const initialWizardType = generateRandomWizard();
+    // wizardTypeElement.textContent = initialWizardType;
+    // spellListElement.innerHTML = "";
 });
