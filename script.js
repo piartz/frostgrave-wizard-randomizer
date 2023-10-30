@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const randomWizardType = generateRandomWizard();
         const randomSpells = generateRandomSpells(randomWizardType);
         const alignedSpells = generateAlignedSpells(randomWizardType);
-        const neutralSpells = generateRandomNeutralSpells(randomWizardType); // Generate random neutral spells
+        const neutralSpells = generateRandomNeutralSpells(randomWizardType);
 
         wizardTypeElement.textContent = randomWizardType;
 
