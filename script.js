@@ -187,6 +187,19 @@ function generateAlignedSpells(wizardType) {
     return alignedSpells;
 }
 
+function generateRandomNeutralSpells(wizardType) {
+    const neutralCandidates = neutralTypes.filter(type => type !== wizardType);
+    const neutralSpells = [];
+    neutralCandidates.forEach((type) => {
+        const spellList = spells[type];
+        if (spellList) {
+            const randomIndex = Math.floor(Math.random() * spellList.length);
+            neutralSpells.push({ type, spell: spellList[randomIndex] });
+        }
+    });
+    return neutralSpells.slice(0, 2); // Return the first 2 random neutral spells
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     const wizardTypeElement = document.getElementById("wizard-type");
     const generateButton = document.getElementById("generate-button");
@@ -224,6 +237,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 ulAligned.appendChild(liAligned);
             });
             spellListElement.appendChild(ulAligned);
+        }
+
+        if (neutralSpells.length > 0) {
+            const neutralSpellsElement = document.createElement("p");
+            neutralSpellsElement.textContent = "Neutral Spells:";
+            spellListElement.appendChild(neutralSpellsElement);
+
+            const ulNeutral = document.createElement("ul");
+            neutralSpells.forEach(neutralSpell => {
+                const liNeutral = document.createElement("li");
+                liNeutral.textContent = `${neutralSpell.type}: ${neutralSpell.spell}`;
+                ulNeutral.appendChild(liNeutral);
+            });
+            spellListElement.appendChild(ulNeutral);
         }
     });
 
