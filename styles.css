@@ -15,6 +15,13 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+#wizard-type {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    margin: 10px 0;
+}
+
 h1 {
     font-size: 24px;
     margin: 10px 0;
@@ -43,6 +50,8 @@ li {
 }
 
 /* Style headers within the spell-list */
-#spell-list h2 {
-    font-weight: bold;
+#spell-list {
+    font-size: 16px;
+    margin-top: 20px;
+    color: #333;
 }
