@@ -201,7 +201,7 @@ function shuffleArray(array) {
 
 function generateRandomNeutralSpells(wizardType) {
     const neutralCandidates = generateRandomNeutralType(wizardType);
-    shuffleArray(neutralCandidates); // Shuffle the array
+    neutralCandidates = shuffleArray(neutralCandidates); // Shuffle the array
     const neutralSpells = [];
     neutralCandidates.forEach((type) => {
         const spellList = spells[type];
