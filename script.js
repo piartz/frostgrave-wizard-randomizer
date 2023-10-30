@@ -153,10 +153,6 @@ const neutralTypes = {
     Summoner: ["Thaumaturge", "Illusionist", "Soothsayer", "Enchanter", "Elementalist"],
 };
 
-function generateRandomNeutralType(wizardType) {
-    return neutralTypes[wizardType];
-}
-
 function generateRandomWizard() {
     const randomIndex = Math.floor(Math.random() * wizardTypes.length);
     return wizardTypes[randomIndex];
@@ -192,16 +188,24 @@ function generateAlignedSpells(wizardType) {
     return alignedSpells;
 }
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+function getRandomNeutralTypes(wizardType) {
+    const neutralTypesArray = neutralTypes[wizardType];
+    if (!neutralTypesArray || neutralTypesArray.length === 0) {
+        return null; // Return null if there are no aligned types for the wizard type.
     }
+    const randomIndexes = [];
+    while (randomIndexes.length < 2) {
+        const randomIndex = Math.floor(Math.random() * neutralTypesArray.length);
+        if (!randomIndexes.includes(randomIndex)) {
+            randomIndexes.push(randomIndex);
+        }
+    }
+    const randomNeutralTypes = randomIndexes.map(index => neutralTypesArray[index]);
+    return randomNeutralTypes;
 }
 
 function generateRandomNeutralSpells(wizardType) {
-    const arrayCandidates = neutralTypes[wizardType];
-    const neutralCandidates = shuffleArray(arrayCandidates); // Shuffle the array
+    const neutralCandidates = getRandomNeutralTypes(wizardType);
     const neutralSpells = [];
     neutralCandidates.forEach((type) => {
         const spellList = spells[type];
