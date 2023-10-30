@@ -41,3 +41,8 @@ ul {
 li {
     margin: 5px 0;
 }
+
+/* Style headers within the spell-list */
+#spell-list h2 {
+    font-weight: bold;
+}
