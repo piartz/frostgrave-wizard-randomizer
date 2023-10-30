@@ -239,6 +239,9 @@ document.addEventListener("DOMContentLoaded", function() {
             spellListElement.appendChild(ulAligned);
         }
 
+        const neutralSpells = generateRandomNeutralSpells(randomWizardType); // Generate random neutral spells
+
+
         if (neutralSpells.length > 0) {
             const neutralSpellsElement = document.createElement("p");
             neutralSpellsElement.textContent = "Neutral Spells:";
