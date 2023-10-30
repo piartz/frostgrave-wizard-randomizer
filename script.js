@@ -127,6 +127,31 @@ const alignedTypes = {
     Summoner: ["Witch", "Necromancer", "Chronomancer"],
 };
 
+const opposingTypes = {
+    Thaumaturge: "Necromancer",
+    Necromancer: "Thaumaturge",
+    Chronomancer: "Enchanter",
+    Enchanter: "Chronomancer",
+    Soothsayer: "Witch",
+    Witch: "Soothsayer",
+    Summoner: "Sigilist",
+    Sigilist: "Summoner",
+    Elementalist: "Illusionist",
+    Illusionist: "Elementalist",
+};
+
+const neutralTypes = wizardTypes.filter(type => !alignedTypes[type] && !opposingTypes[type]);
+
+function generateRandomOpposingType(wizardType) {
+    return opposingTypes[wizardType];
+}
+
+function generateRandomNeutralType(wizardType) {
+    const neutralCandidates = neutralTypes.filter(type => type !== wizardType);
+    const randomIndex = Math.floor(Math.random() * neutralCandidates.length);
+    return neutralCandidates[randomIndex];
+}
+
 function generateRandomWizard() {
     const randomIndex = Math.floor(Math.random() * wizardTypes.length);
     return wizardTypes[randomIndex];
