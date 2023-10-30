@@ -192,8 +192,16 @@ function generateAlignedSpells(wizardType) {
     return alignedSpells;
 }
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 function generateRandomNeutralSpells(wizardType) {
     const neutralCandidates = generateRandomNeutralType(wizardType);
+    shuffleArray(neutralCandidates); // Shuffle the array
     const neutralSpells = [];
     neutralCandidates.forEach((type) => {
         const spellList = spells[type];
