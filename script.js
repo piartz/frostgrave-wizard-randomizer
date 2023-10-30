@@ -114,6 +114,19 @@ const spells = {
     ]
 };
 
+const alignedTypes = {
+    Thaumaturge: ["Sigilist", "Illusionist", "Soothsayer"],
+    Sigilist: ["Thaumaturge", "Illusionist", "Enchanter"],
+    Illusionist: ["Sigilist", "Thaumaturge", "Soothsayer"],
+    Soothsayer: ["Thaumaturge", "Illusionist", "Chronomancer"],
+    Enchanter: ["Sigilist", "Elementalist", "Witch"],
+    Elementalist: ["Enchanter", "Necromancer", "Chronomancer"],
+    Chronomancer: ["Soothsayer", "Elementalist", "Summoner"],
+    Necromancer: ["Elementalist", "Witch", "Summoner"],
+    Witch: ["Enchanter", "Necromancer", "Summoner"],
+    Summoner: ["Witch", "Necromancer", "Chronomancer"],
+};
+
 function generateRandomWizard() {
     const randomIndex = Math.floor(Math.random() * wizardTypes.length);
     return wizardTypes[randomIndex];
@@ -124,26 +137,43 @@ function generateRandomSpells(wizardType) {
     if (!spellList) {
         return [];
     }
-    
+
     const shuffledSpells = spellList.slice(); // Copy the array
     for (let i = shuffledSpells.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledSpells[i], shuffledSpells[j]] = [shuffledSpells[j], shuffledSpells[i]]; // Swap elements
     }
-    
+
     return shuffledSpells.slice(0, 3); // Return the first 3 shuffled spells
+}
+
+function generateAlignedSpells(wizardType) {
+    const aligned = alignedTypes[wizardType];
+    const alignedSpells = [];
+    if (aligned) {
+        aligned.forEach((type) => {
+            const spellList = spells[type];
+            if (spellList) {
+                const randomIndex = Math.floor(Math.random() * spellList.length);
+                alignedSpells.push({ type, spell: spellList[randomIndex] });
+            }
+        });
+    }
+    return alignedSpells;
 }
 
 document.addEventListener("DOMContentLoaded", function() {
     const wizardTypeElement = document.getElementById("wizard-type");
     const generateButton = document.getElementById("generate-button");
     const spellListElement = document.getElementById("spell-list");
-    
+
     generateButton.addEventListener("click", function() {
         const randomWizardType = generateRandomWizard();
         const randomSpells = generateRandomSpells(randomWizardType);
+        const alignedSpells = generateAlignedSpells(randomWizardType);
+
         wizardTypeElement.textContent = randomWizardType;
-        
+
         if (randomSpells.length > 0) {
             spellListElement.innerHTML = "<p>Learned Spells:</p>";
             const ul = document.createElement("ul");
@@ -156,8 +186,22 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             spellListElement.innerHTML = "";
         }
+
+        if (alignedSpells.length > 0) {
+            const alignedSpellsElement = document.createElement("p");
+            alignedSpellsElement.textContent = "Aligned Spells:";
+            spellListElement.appendChild(alignedSpellsElement);
+
+            const ulAligned = document.createElement("ul");
+            alignedSpells.forEach(alignedSpell => {
+                const liAligned = document.createElement("li");
+                liAligned.textContent = `${alignedSpell.type}: ${alignedSpell.spell}`;
+                ulAligned.appendChild(liAligned);
+            });
+            spellListElement.appendChild(ulAligned);
+        }
     });
-    
+
     // Initial generation when the page loads
     const initialWizardType = generateRandomWizard();
     wizardTypeElement.textContent = initialWizardType;
