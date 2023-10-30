@@ -140,16 +140,21 @@ const opposingTypes = {
     Illusionist: "Elementalist",
 };
 
-const neutralTypes = wizardTypes.filter(type => !alignedTypes[type] && !opposingTypes[type]);
-
-function generateRandomOpposingType(wizardType) {
-    return opposingTypes[wizardType];
-}
+const neutralTypes = {
+    Thaumaturge: ["Enchanter", "Elementalist", "Chronomancer", "Witch", "Summoner"],
+    Sigilist: ["Soothsayer", "Elementalist", "Chronomancer", "Necromancer", "Witch"],
+    Illusionist: ["Enchanter", "Chronomancer", "Necromancer", "Witch", "Summoner"],
+    Soothsayer: ["Sigilist", "Enchanter", "Elementalist", "Necromancer", "Summoner"],
+    Enchanter: ["Thaumaturge", "Illusionist", "Soothsayer", "Necromancer", "Summoner"],
+    Elementalist: ["Thaumaturge", "Sigilist", "Soothsayer", "Witch", "Summoner"],
+    Chronomancer: ["Thaumaturge", "Sigilist", "Illusionist", "Necromancer", "Witch"],
+    Necromancer: ["Sigilist", "Illusionist", "Soothsayer", "Enchanter", "Chronomancer"],
+    Witch: ["Thaumaturge", "Sigilist", "Illusionist", "Elementalist", "Chronomancer"],
+    Summoner: ["Thaumaturge", "Illusionist", "Soothsayer", "Enchanter", "Elementalist"],
+};
 
 function generateRandomNeutralType(wizardType) {
-    const neutralCandidates = neutralTypes.filter(type => type !== wizardType);
-    const randomIndex = Math.floor(Math.random() * neutralCandidates.length);
-    return neutralCandidates[randomIndex];
+    return neutralTypes[wizardType];
 }
 
 function generateRandomWizard() {
@@ -188,7 +193,7 @@ function generateAlignedSpells(wizardType) {
 }
 
 function generateRandomNeutralSpells(wizardType) {
-    const neutralCandidates = neutralTypes.filter(type => !alignedTypes[wizardType].includes(type) && type !== opposingTypes[wizardType]);
+    const neutralCandidates = generateRandomNeutralType(wizardType);
     const neutralSpells = [];
     neutralCandidates.forEach((type) => {
         const spellList = spells[type];
@@ -209,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const randomWizardType = generateRandomWizard();
         const randomSpells = generateRandomSpells(randomWizardType);
         const alignedSpells = generateAlignedSpells(randomWizardType);
+        const neutralSpells = generateRandomNeutralSpells(randomWizardType); // Generate random neutral spells
 
         wizardTypeElement.textContent = randomWizardType;
 
@@ -238,9 +244,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             spellListElement.appendChild(ulAligned);
         }
-
-        const neutralSpells = generateRandomNeutralSpells(randomWizardType); // Generate random neutral spells
-
 
         if (neutralSpells.length > 0) {
             const neutralSpellsElement = document.createElement("p");
